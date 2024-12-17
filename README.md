@@ -19,15 +19,6 @@ Open [http://localhost:5173](http://localhost:5173) with your browser to see the
 
 - I opted for a `flat` layout for the application folder structure, avoiding deep nesting since the project is small. So, i didn't introduced features/ folder, instead i placed all logic sorted by folders at the root.
 
-/029 api/
-/026 assets/
-/025 comps/
-/027 hooks/
-/020 routes/
-/023 store/
-/022 types/
-/024 utils/
-
 - I decided to use Tailwind CSS for styling, as it suits a small project without complex animations.
 
 - I introduced linting and formatting from the start of the project.
