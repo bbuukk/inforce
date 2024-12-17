@@ -3,7 +3,7 @@ import globalUiReducer from './globalUISlice.ts';
 
 const store = configureStore({
   reducer: {
-    example: globalUiReducer
+    globalUI: globalUiReducer
   }
 });
 
