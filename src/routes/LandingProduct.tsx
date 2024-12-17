@@ -2,20 +2,15 @@ import { useEffect, useState } from 'react';
 import { Product } from '../types';
 import { useParams } from 'react-router-dom';
 
-import { RootState } from '../store/store';
-
-import { useSelector, useDispatch } from 'react-redux';
 import { Modals } from '../utils/enums';
-import { setActiveModal } from '../store/globalUISlice';
 import MutateProductModal from '../comps/MutateProductModal';
+import useModal from '../hooks/useModal';
 
 const apiUrl = import.meta.env.VITE_API_URL;
 
 function LandingProduct() {
-  const activeModal = useSelector(
-    (state: RootState) => state.globalUI.activeModal
-  );
-  const dispatch = useDispatch();
+  const { activeModal, openModal, closeModal } = useModal();
+
   const { id } = useParams<{ id: string }>();
   const [product, setProduct] = useState<Product | null>(null);
 
@@ -71,7 +66,7 @@ function LandingProduct() {
       {activeModal === Modals.MUTATE_PRODUCT && (
         <MutateProductModal
           initProduct={product}
-          onClose={() => dispatch(setActiveModal(null))}
+          onClose={() => closeModal()}
           onMutateProduct={(p) => editProduct(p)}
         />
       )}
@@ -95,7 +90,7 @@ function LandingProduct() {
 
             <button
               className="mt-2 rounded bg-blue-500 px-4 py-2 text-white"
-              onClick={() => dispatch(setActiveModal(Modals.MUTATE_PRODUCT))}
+              onClick={() => openModal(Modals.MUTATE_PRODUCT)}
             >
               Edit
             </button>
