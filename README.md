@@ -1,6 +1,7 @@
 ## How to run a project?
 
 ```bash
+npm install #make sure all deps are installed
 json-server --watch db.json --port 3000 # mock db
 npm run dev # run app in dev mode
 ```
