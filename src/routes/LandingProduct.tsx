@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Product } from '../types';
 import { useParams } from 'react-router-dom';
+import { editProduct } from '../api';
 
 import { Modals } from '../utils/enums';
 import MutateProductModal from '../comps/MutateProductModal';
@@ -32,29 +33,6 @@ function LandingProduct() {
     };
     fetchProducts();
   }, [id]);
-
-  const editProduct = async (changedProduct: Product) => {
-    try {
-      const response = await fetch(`${apiUrl}/products/${product?.id}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(changedProduct)
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to edit product');
-      }
-
-      const data = await response.json();
-      console.log(data);
-      //TODO: dispatch new product to global products state
-    } catch (error) {
-      console.error('Error edit the product:', error);
-      // TODO: display error to the user
-    }
-  };
 
   if (!product) {
     //TODO: introduce better ui/ux for loading state
