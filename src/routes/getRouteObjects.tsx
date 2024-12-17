@@ -14,7 +14,7 @@ const getRouteObjects = () => {
           element: <ListingProducts />
         },
         {
-          path: '/product/:id',
+          path: '/products/:id',
           element: <LandingProduct />
         }
       ]

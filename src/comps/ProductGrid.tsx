@@ -2,6 +2,7 @@ import { Product } from '../types';
 import { FC, useState } from 'react';
 
 import WarningModal from './WarningModal';
+import { Link } from 'react-router-dom';
 
 const apiUrl = import.meta.env.VITE_API_URL;
 
@@ -49,11 +50,11 @@ const ProductGrid: FC<ProductGridProps> = ({ products }) => {
         {products.map((product, index) => (
           <li
             key={index}
-            className="mb-2 flex items-center justify-between rounded-lg bg-white p-4 shadow-md"
+            className="mb-2 flex items-center justify-between rounded-lg bg-white p-4 shadow-md hover:text-blue-400"
           >
-            <span className="font-bold">
+            <Link to={`/products/${product.id}`} className="font-bold">
               {`${product.name} - ${product.count}`}
-            </span>
+            </Link>
 
             <button
               className="rounded bg-red-500 px-2 py-1 text-white"
