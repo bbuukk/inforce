@@ -1,50 +1,39 @@
-# React + TypeScript + Vite
+## How to run a project?
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
-
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname
-    }
-  }
-});
+```bash
+json-server --watch db.json --port 3000 # mock db
+npm run dev # run app in dev mode
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+Open [http://localhost:5173](http://localhost:5173) with your browser to see the result.
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react';
+## Additional info
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules
-  }
-});
-```
+#### Issues, that I have not addressed, because of time limitation:
+- global product state using redux
+- there's also a bug, that after adding a new product (because of its id does not auto increment), user cannot delete any product, because the route of json-server returns 404 (tried to debug, but couldn't resolved fast, skipped)
+- comments on products
+
+## Some project design considerations
+
+- I opted for a `flat` layout for the application folder structure, avoiding deep nesting since the project is small. So, i didn't introduced features/ folder, instead i placed all logic sorted by folders at the root.
+
+/029 api/
+/026 assets/
+/025 comps/
+/027 hooks/
+/020 routes/
+/023 store/
+/022 types/
+/024 utils/
+
+- I decided to use Tailwind CSS for styling, as it suits a small project without complex animations.
+
+- I introduced linting and formatting from the start of the project.
+
+
+
+## P.S.
+Thank you, because it was really fun to bring this project to life and I gained some real interesting insights for myself on how to approach such tasks.
+
+
