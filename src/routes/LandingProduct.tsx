@@ -1,41 +1,13 @@
-import { useEffect, useState } from 'react';
-import { Product } from '../types';
-import { useParams } from 'react-router-dom';
 import { editProduct } from '../api';
-
-import { Modals } from '../utils/enums';
 import MutateProductModal from '../comps/MutateProductModal';
-import useModal from '../hooks/useModal';
-
-const apiUrl = import.meta.env.VITE_API_URL;
+import useGetProduct from '../hooks/useGetProduct';
+import { Modals } from '../utils/enums';
 
 function LandingProduct() {
-  const { activeModal, openModal, closeModal } = useModal();
-
-  const { id } = useParams<{ id: string }>();
-  const [product, setProduct] = useState<Product | null>(null);
-
-  useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const response = await fetch(`${apiUrl}/products/${id}`);
-
-        if (!response.ok) {
-          throw new Error('Failed to get products');
-        }
-        const data = await response.json();
-        console.log(data);
-        setProduct(data);
-      } catch (error) {
-        //TODO: display error to the user
-        console.error('Error fetching products:', error);
-      }
-    };
-    fetchProducts();
-  }, [id]);
+  const { product, activeModal, openModal, closeModal } = useGetProduct();
 
   if (!product) {
-    //TODO: introduce better ui/ux for loading state
+    // TODO: introduce better UI/UX for loading state
     return <div>Loading...</div>;
   }
 
@@ -44,7 +16,7 @@ function LandingProduct() {
       {activeModal === Modals.MUTATE_PRODUCT && (
         <MutateProductModal
           initProduct={product}
-          onClose={() => closeModal()}
+          onClose={closeModal}
           onMutateProduct={(p) => editProduct(p)}
         />
       )}
