@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react';
 import { RootState } from '../store/store';
 import { Product } from '../types';
 import MutateProductModal from '../comps/MutateProductModal';
@@ -7,44 +6,17 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Modals } from '../utils/enums';
 import { setActiveModal } from '../store/globalUISlice';
 import ProductGrid from '../comps/ProductGrid';
+import useGetProducts from '../hooks/useGetProducts';
 
 const apiUrl = import.meta.env.VITE_API_URL;
 
 function ListingProducts() {
+  const { sortedProducts, sortOption, setSortOption } = useGetProducts();
+
   const activeModal = useSelector(
     (state: RootState) => state.globalUI.activeModal
   );
   const dispatch = useDispatch();
-
-  const [products, setProducts] = useState<Product[]>([]);
-  const [sortOption, setSortOption] = useState('alphabetical');
-
-  useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const response = await fetch(`${apiUrl}/products`);
-
-        if (!response.ok) {
-          throw new Error('Failed to get products');
-        }
-        const data = await response.json();
-        console.log(data);
-        setProducts(data);
-      } catch (error) {
-        console.error('Error fetching products:', error);
-        //TODO: display error to the user
-      }
-    };
-    fetchProducts();
-  }, []);
-
-  const sortedProducts = [...products].sort((a, b) => {
-    if (sortOption === 'alphabetical') {
-      return a.name.localeCompare(b.name);
-    } else {
-      return b.count - a.count;
-    }
-  });
 
   const createNewProduct = async (newProduct: Product) => {
     try {
