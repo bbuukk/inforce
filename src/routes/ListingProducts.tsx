@@ -8,7 +8,6 @@ import { createNewProduct } from '../api';
 
 function ListingProducts() {
   const { sortedProducts, sortOption, setSortOption } = useGetProducts();
-
   const { activeModal, openModal, closeModal } = useModal();
 
   return (
