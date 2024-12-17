@@ -11,7 +11,7 @@ Open [http://localhost:5173](http://localhost:5173) with your browser to see the
 ## Additional info
 
 #### Issues, that I have not addressed, because of time limitation:
-- global product state using redux
+- global product state using redux (so user has to refresh after add, delete and edit actions to see the changes
 - there's also a bug, that after adding a new product (because of its id does not auto increment), user cannot delete any product, because the route of json-server returns 404 (tried to debug, but couldn't resolved fast, skipped)
 - comments on products
 
