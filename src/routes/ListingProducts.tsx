@@ -1,40 +1,15 @@
-import { Product } from '../types';
 import MutateProductModal from '../comps/MutateProductModal';
 
 import { Modals } from '../utils/enums';
 import ProductGrid from '../comps/ProductGrid';
 import useGetProducts from '../hooks/useGetProducts';
 import useModal from '../hooks/useModal';
-
-const apiUrl = import.meta.env.VITE_API_URL;
+import { createNewProduct } from '../api';
 
 function ListingProducts() {
   const { sortedProducts, sortOption, setSortOption } = useGetProducts();
 
   const { activeModal, openModal, closeModal } = useModal();
-
-  const createNewProduct = async (newProduct: Product) => {
-    try {
-      const response = await fetch(`${apiUrl}/products`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(newProduct)
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to post new product');
-      }
-
-      const data = await response.json();
-      console.log(data);
-      //TODO: dispatch new product to global products state
-    } catch (error) {
-      console.error('Error posting product:', error);
-      // TODO: display error to the user
-    }
-  };
 
   return (
     <>
