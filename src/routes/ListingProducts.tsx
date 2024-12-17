@@ -1,22 +1,17 @@
-import { RootState } from '../store/store';
 import { Product } from '../types';
 import MutateProductModal from '../comps/MutateProductModal';
 
-import { useSelector, useDispatch } from 'react-redux';
 import { Modals } from '../utils/enums';
-import { setActiveModal } from '../store/globalUISlice';
 import ProductGrid from '../comps/ProductGrid';
 import useGetProducts from '../hooks/useGetProducts';
+import useModal from '../hooks/useModal';
 
 const apiUrl = import.meta.env.VITE_API_URL;
 
 function ListingProducts() {
   const { sortedProducts, sortOption, setSortOption } = useGetProducts();
 
-  const activeModal = useSelector(
-    (state: RootState) => state.globalUI.activeModal
-  );
-  const dispatch = useDispatch();
+  const { activeModal, openModal, closeModal } = useModal();
 
   const createNewProduct = async (newProduct: Product) => {
     try {
@@ -45,7 +40,7 @@ function ListingProducts() {
     <>
       {activeModal === Modals.MUTATE_PRODUCT && (
         <MutateProductModal
-          onClose={() => dispatch(setActiveModal(null))}
+          onClose={() => closeModal()}
           onMutateProduct={(p) => createNewProduct(p)}
         />
       )}
@@ -54,7 +49,7 @@ function ListingProducts() {
         <div className="mb-4 flex items-center justify-between">
           <button
             className="rounded bg-blue-500 px-4 py-2 text-white"
-            onClick={() => dispatch(setActiveModal(Modals.MUTATE_PRODUCT))}
+            onClick={() => openModal(Modals.MUTATE_PRODUCT)}
           >
             Add Product
           </button>
