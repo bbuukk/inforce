@@ -2,15 +2,13 @@ import React, { useState } from 'react';
 import { Product } from '../types';
 
 interface MutateProductModalProps {
+  initProduct?: Product;
   onClose: () => void;
   onMutateProduct: (product: Product) => void;
 }
 
 const MutateProductModal: React.FC<MutateProductModalProps> = ({
-  onClose,
-  onMutateProduct
-}) => {
-  const [product, setProduct] = useState<Product>({
+  initProduct = {
     id: 0,
     imageUrl: '',
     name: '',
@@ -18,7 +16,11 @@ const MutateProductModal: React.FC<MutateProductModalProps> = ({
     size: { width: 0, height: 0 },
     weight: '',
     comments: []
-  });
+  },
+  onClose,
+  onMutateProduct
+}) => {
+  const [product, setProduct] = useState<Product>(initProduct);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -49,7 +51,7 @@ const MutateProductModal: React.FC<MutateProductModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-gray-800/50">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-gray-800/70">
       <div className="w-full max-w-md rounded-lg bg-white p-6 shadow-lg">
         <h2 className="mb-4 text-xl font-bold">Add New Product</h2>
 
